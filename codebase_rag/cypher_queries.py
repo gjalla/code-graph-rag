@@ -61,8 +61,8 @@ MATCH (a)-[r]->(b)
 RETURN id(a) as from_id, id(b) as to_id, type(r) as type, properties(r) as properties
 """
 
-CYPHER_RETURN_COUNT = "RETURN count(r) as created"
-CYPHER_SET_PROPS_RETURN_COUNT = "SET r += row.props\nRETURN count(r) as created"
+CYPHER_RETURN_COUNT = "SET r.indexed_at = timestamp()\nRETURN count(r) as created"
+CYPHER_SET_PROPS_RETURN_COUNT = "SET r += row.props, r.indexed_at = timestamp()\nRETURN count(r) as created"
 
 CYPHER_GET_FUNCTION_SOURCE_LOCATION = """
 MATCH (m:Module)-[:DEFINES]->(n)
@@ -99,7 +99,7 @@ def build_constraint_query(label: str, prop: str) -> str:
 
 
 def build_merge_node_query(label: str, id_key: str) -> str:
-    return f"MERGE (n:{label} {{{id_key}: row.id}})\nSET n += row.props"
+    return f"MERGE (n:{label} {{{id_key}: row.id}})\nSET n += row.props, n.indexed_at = timestamp()"
 
 
 def build_merge_relationship_query(

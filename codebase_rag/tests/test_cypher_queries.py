@@ -40,13 +40,13 @@ class TestBuildMergeNodeQueryUnit:
     def test_file_node_query(self) -> None:
         result = build_merge_node_query("File", "path")
 
-        assert result == "MERGE (n:File {path: row.id})\nSET n += row.props"
+        assert result == "MERGE (n:File {path: row.id})\nSET n += row.props, n.indexed_at = timestamp()"
 
     def test_function_node_query(self) -> None:
         result = build_merge_node_query("Function", "qualified_name")
 
         assert (
-            result == "MERGE (n:Function {qualified_name: row.id})\nSET n += row.props"
+            result == "MERGE (n:Function {qualified_name: row.id})\nSET n += row.props, n.indexed_at = timestamp()"
         )
 
 
@@ -65,6 +65,7 @@ class TestBuildMergeRelationshipQueryUnit:
             "MATCH (a:Module {qualified_name: row.from_val}), "
             "(b:Function {qualified_name: row.to_val})\n"
             "MERGE (a)-[r:DEFINES]->(b)\n"
+            "SET r.indexed_at = timestamp()\n"
             "RETURN count(r) as created"
         )
         assert result == expected
@@ -83,7 +84,7 @@ class TestBuildMergeRelationshipQueryUnit:
             "MATCH (a:Function {qualified_name: row.from_val}), "
             "(b:Function {qualified_name: row.to_val})\n"
             "MERGE (a)-[r:CALLS]->(b)\n"
-            "SET r += row.props\n"
+            "SET r += row.props, r.indexed_at = timestamp()\n"
             "RETURN count(r) as created"
         )
         assert result == expected
