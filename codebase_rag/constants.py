@@ -86,6 +86,26 @@ EXT_CCM = ".ccm"
 EXT_CS = ".cs"
 EXT_PHP = ".php"
 EXT_LUA = ".lua"
+# New language extensions
+EXT_SWIFT = ".swift"
+EXT_RUBY = ".rb"
+EXT_RAKE = ".rake"
+EXT_GEMSPEC = ".gemspec"
+EXT_KOTLIN = ".kt"
+EXT_KTS = ".kts"
+EXT_ELIXIR = ".ex"
+EXT_EXSCRIPT = ".exs"
+EXT_DART = ".dart"
+EXT_BASH = ".sh"
+EXT_BASH2 = ".bash"
+EXT_ZSH = ".zsh"
+EXT_SQL = ".sql"
+EXT_HCL = ".hcl"
+EXT_TF = ".tf"
+EXT_TFVARS = ".tfvars"
+EXT_ELM = ".elm"
+EXT_OCAML = ".ml"
+EXT_OCAML_INTERFACE = ".mli"
 
 # (H) File extension tuples by language
 PY_EXTENSIONS = (EXT_PY,)
@@ -110,6 +130,17 @@ CPP_EXTENSIONS = (
 CS_EXTENSIONS = (EXT_CS,)
 PHP_EXTENSIONS = (EXT_PHP,)
 LUA_EXTENSIONS = (EXT_LUA,)
+# New language extension tuples
+SWIFT_EXTENSIONS = (EXT_SWIFT,)
+RUBY_EXTENSIONS = (EXT_RUBY, EXT_RAKE, EXT_GEMSPEC)
+KOTLIN_EXTENSIONS = (EXT_KOTLIN, EXT_KTS)
+ELIXIR_EXTENSIONS = (EXT_ELIXIR, EXT_EXSCRIPT)
+DART_EXTENSIONS = (EXT_DART,)
+BASH_EXTENSIONS = (EXT_BASH, EXT_BASH2, EXT_ZSH)
+SQL_EXTENSIONS = (EXT_SQL,)
+HCL_EXTENSIONS = (EXT_HCL, EXT_TF, EXT_TFVARS)
+ELM_EXTENSIONS = (EXT_ELM,)
+OCAML_EXTENSIONS = (EXT_OCAML, EXT_OCAML_INTERFACE)
 
 # (H) Package indicator files
 PKG_INIT_PY = "__init__.py"
@@ -435,6 +466,17 @@ class SupportedLanguage(StrEnum):
     CSHARP = "c-sharp"
     PHP = "php"
     LUA = "lua"
+    # New languages
+    SWIFT = "swift"
+    RUBY = "ruby"
+    KOTLIN = "kotlin"
+    ELIXIR = "elixir"
+    DART = "dart"
+    BASH = "bash"
+    SQL = "sql"
+    HCL = "hcl"
+    ELM = "elm"
+    OCAML = "ocaml"
 
 
 class LanguageStatus(StrEnum):
@@ -503,6 +545,57 @@ LANGUAGE_METADATA: dict[SupportedLanguage, LanguageMetadata] = {
         LanguageStatus.DEV,
         "Classes, functions, namespaces",
         "PHP",
+    ),
+    # New languages
+    SupportedLanguage.SWIFT: LanguageMetadata(
+        LanguageStatus.DEV,
+        "Classes, structs, enums, protocols, extensions",
+        "Swift",
+    ),
+    SupportedLanguage.RUBY: LanguageMetadata(
+        LanguageStatus.DEV,
+        "Classes, modules, methods, blocks",
+        "Ruby",
+    ),
+    SupportedLanguage.KOTLIN: LanguageMetadata(
+        LanguageStatus.DEV,
+        "Classes, objects, data classes, companion objects",
+        "Kotlin",
+    ),
+    SupportedLanguage.ELIXIR: LanguageMetadata(
+        LanguageStatus.DEV,
+        "Modules, functions, pipes, pattern matching",
+        "Elixir",
+    ),
+    SupportedLanguage.DART: LanguageMetadata(
+        LanguageStatus.DEV,
+        "Classes, mixins, extensions, enums",
+        "Dart",
+    ),
+    SupportedLanguage.BASH: LanguageMetadata(
+        LanguageStatus.DEV,
+        "Functions, commands, variables",
+        "Bash",
+    ),
+    SupportedLanguage.SQL: LanguageMetadata(
+        LanguageStatus.DEV,
+        "Tables, views, functions, procedures",
+        "SQL",
+    ),
+    SupportedLanguage.HCL: LanguageMetadata(
+        LanguageStatus.DEV,
+        "Resources, modules, variables, outputs",
+        "HCL/Terraform",
+    ),
+    SupportedLanguage.ELM: LanguageMetadata(
+        LanguageStatus.DEV,
+        "Functions, types, modules",
+        "Elm",
+    ),
+    SupportedLanguage.OCAML: LanguageMetadata(
+        LanguageStatus.DEV,
+        "Functions, modules, classes, types",
+        "OCaml",
     ),
 }
 
@@ -2754,3 +2847,177 @@ SPEC_LUA_CLASS_TYPES: tuple[str, ...] = ()
 SPEC_LUA_MODULE_TYPES = (TS_LUA_CHUNK,)
 SPEC_LUA_CALL_TYPES = (TS_LUA_FUNCTION_CALL,)
 SPEC_LUA_IMPORT_TYPES = (TS_LUA_FUNCTION_CALL,)
+
+# =============================================================================
+# NEW LANGUAGE SUPPORT - Tree-sitter node types and SPEC constants
+# =============================================================================
+
+# (H) Swift tree-sitter node types
+TS_SWIFT_FUNCTION_DECLARATION = "function_declaration"
+TS_SWIFT_CLASS_DECLARATION = "class_declaration"
+TS_SWIFT_STRUCT_DECLARATION = "struct_declaration"
+TS_SWIFT_ENUM_DECLARATION = "enum_declaration"
+TS_SWIFT_PROTOCOL_DECLARATION = "protocol_declaration"
+TS_SWIFT_EXTENSION_DECLARATION = "extension_declaration"
+TS_SWIFT_CALL_EXPRESSION = "call_expression"
+TS_SWIFT_SOURCE_FILE = "source_file"
+
+SPEC_SWIFT_FUNCTION_TYPES = (TS_SWIFT_FUNCTION_DECLARATION,)
+SPEC_SWIFT_CLASS_TYPES = (
+    TS_SWIFT_CLASS_DECLARATION,
+    TS_SWIFT_STRUCT_DECLARATION,
+    TS_SWIFT_ENUM_DECLARATION,
+    TS_SWIFT_PROTOCOL_DECLARATION,
+)
+SPEC_SWIFT_MODULE_TYPES = (TS_SWIFT_SOURCE_FILE,)
+SPEC_SWIFT_CALL_TYPES = (TS_SWIFT_CALL_EXPRESSION,)
+
+# (H) Ruby tree-sitter node types
+TS_RUBY_METHOD = "method"
+TS_RUBY_SINGLETON_METHOD = "singleton_method"
+TS_RUBY_CLASS = "class"
+TS_RUBY_SINGLETON_CLASS = "singleton_class"
+TS_RUBY_MODULE = "module"
+TS_RUBY_CALL = "call"
+
+SPEC_RUBY_FUNCTION_TYPES = (TS_RUBY_METHOD, TS_RUBY_SINGLETON_METHOD)
+SPEC_RUBY_CLASS_TYPES = (TS_RUBY_CLASS, TS_RUBY_SINGLETON_CLASS)
+SPEC_RUBY_MODULE_TYPES = (TS_RUBY_MODULE, TS_PROGRAM)
+SPEC_RUBY_CALL_TYPES = (TS_RUBY_CALL,)
+
+# (H) Kotlin tree-sitter node types
+TS_KOTLIN_FUNCTION_DECLARATION = "function_declaration"
+TS_KOTLIN_CLASS_DECLARATION = "class_declaration"
+TS_KOTLIN_OBJECT_DECLARATION = "object_declaration"
+TS_KOTLIN_COMPANION_OBJECT = "companion_object"
+TS_KOTLIN_CALL_EXPRESSION = "call_expression"
+TS_KOTLIN_SOURCE_FILE = "source_file"
+TS_KOTLIN_PACKAGE_HEADER = "package_header"
+
+SPEC_KOTLIN_FUNCTION_TYPES = (TS_KOTLIN_FUNCTION_DECLARATION,)
+SPEC_KOTLIN_CLASS_TYPES = (
+    TS_KOTLIN_CLASS_DECLARATION,
+    TS_KOTLIN_OBJECT_DECLARATION,
+    TS_KOTLIN_COMPANION_OBJECT,
+)
+SPEC_KOTLIN_MODULE_TYPES = (TS_KOTLIN_SOURCE_FILE, TS_KOTLIN_PACKAGE_HEADER)
+SPEC_KOTLIN_CALL_TYPES = (TS_KOTLIN_CALL_EXPRESSION,)
+
+# (H) Elixir tree-sitter node types
+TS_ELIXIR_CALL = "call"
+TS_ELIXIR_BINARY_OPERATOR = "binary_operator"
+
+SPEC_ELIXIR_FUNCTION_TYPES = (TS_ELIXIR_CALL,)  # def/defp are calls in Elixir
+SPEC_ELIXIR_CLASS_TYPES: tuple[str, ...] = ()  # Elixir has modules, not classes
+SPEC_ELIXIR_MODULE_TYPES = (TS_ELIXIR_CALL,)  # defmodule is a call
+SPEC_ELIXIR_CALL_TYPES = (TS_ELIXIR_CALL, TS_ELIXIR_BINARY_OPERATOR)
+
+# (H) Dart tree-sitter node types
+TS_DART_FUNCTION_SIGNATURE = "function_signature"
+TS_DART_METHOD_SIGNATURE = "method_signature"
+TS_DART_CLASS_DEFINITION = "class_definition"
+TS_DART_ENUM_DECLARATION = "enum_declaration"
+TS_DART_MIXIN_DECLARATION = "mixin_declaration"
+TS_DART_EXTENSION_DECLARATION = "extension_declaration"
+TS_DART_IDENTIFIER = "identifier"
+
+SPEC_DART_FUNCTION_TYPES = (TS_DART_FUNCTION_SIGNATURE, TS_DART_METHOD_SIGNATURE)
+SPEC_DART_CLASS_TYPES = (
+    TS_DART_CLASS_DEFINITION,
+    TS_DART_ENUM_DECLARATION,
+    TS_DART_MIXIN_DECLARATION,
+    TS_DART_EXTENSION_DECLARATION,
+)
+SPEC_DART_MODULE_TYPES = (TS_PROGRAM,)
+SPEC_DART_CALL_TYPES = (TS_DART_IDENTIFIER,)
+
+# (H) Bash tree-sitter node types
+TS_BASH_FUNCTION_DEFINITION = "function_definition"
+TS_BASH_COMMAND = "command"
+
+SPEC_BASH_FUNCTION_TYPES = (TS_BASH_FUNCTION_DEFINITION,)
+SPEC_BASH_CLASS_TYPES: tuple[str, ...] = ()  # Bash has no classes
+SPEC_BASH_MODULE_TYPES = (TS_PROGRAM,)
+SPEC_BASH_CALL_TYPES = (TS_BASH_COMMAND,)
+
+# (H) SQL tree-sitter node types
+TS_SQL_CREATE_FUNCTION = "create_function_statement"
+TS_SQL_CREATE_TABLE = "create_table_statement"
+TS_SQL_CREATE_VIEW = "create_view_statement"
+TS_SQL_FUNCTION_CALL = "function_call"
+
+SPEC_SQL_FUNCTION_TYPES = (TS_SQL_CREATE_FUNCTION,)
+SPEC_SQL_CLASS_TYPES = (TS_SQL_CREATE_TABLE, TS_SQL_CREATE_VIEW)
+SPEC_SQL_MODULE_TYPES = (TS_PROGRAM,)
+SPEC_SQL_CALL_TYPES = (TS_SQL_FUNCTION_CALL,)
+
+# (H) HCL/Terraform tree-sitter node types
+TS_HCL_BLOCK = "block"
+TS_HCL_BODY = "body"
+TS_HCL_FUNCTION_CALL = "function_call"
+
+SPEC_HCL_FUNCTION_TYPES: tuple[str, ...] = ()  # HCL doesn't have traditional functions
+SPEC_HCL_CLASS_TYPES = (TS_HCL_BLOCK,)  # resource, module, data blocks
+SPEC_HCL_MODULE_TYPES = (TS_HCL_BODY,)
+SPEC_HCL_CALL_TYPES = (TS_HCL_FUNCTION_CALL,)
+
+# (H) Elm tree-sitter node types
+TS_ELM_VALUE_DECLARATION = "value_declaration"
+TS_ELM_TYPE_DECLARATION = "type_declaration"
+TS_ELM_MODULE_DECLARATION = "module_declaration"
+TS_ELM_FUNCTION_CALL_EXPR = "function_call_expr"
+
+SPEC_ELM_FUNCTION_TYPES = (TS_ELM_VALUE_DECLARATION,)
+SPEC_ELM_CLASS_TYPES = (TS_ELM_TYPE_DECLARATION,)
+SPEC_ELM_MODULE_TYPES = (TS_ELM_MODULE_DECLARATION,)
+SPEC_ELM_CALL_TYPES = (TS_ELM_FUNCTION_CALL_EXPR,)
+
+# (H) OCaml tree-sitter node types
+TS_OCAML_VALUE_DEFINITION = "value_definition"
+TS_OCAML_EXTERNAL = "external"
+TS_OCAML_CLASS_DEFINITION = "class_definition"
+TS_OCAML_CLASS_TYPE_DEFINITION = "class_type_definition"
+TS_OCAML_MODULE_DEFINITION = "module_definition"
+TS_OCAML_MODULE_TYPE_DEFINITION = "module_type_definition"
+TS_OCAML_APPLICATION_EXPRESSION = "application_expression"
+TS_OCAML_METHOD_INVOCATION = "method_invocation"
+
+SPEC_OCAML_FUNCTION_TYPES = (TS_OCAML_VALUE_DEFINITION, TS_OCAML_EXTERNAL)
+SPEC_OCAML_CLASS_TYPES = (TS_OCAML_CLASS_DEFINITION, TS_OCAML_CLASS_TYPE_DEFINITION)
+SPEC_OCAML_MODULE_TYPES = (TS_OCAML_MODULE_DEFINITION, TS_OCAML_MODULE_TYPE_DEFINITION)
+SPEC_OCAML_CALL_TYPES = (TS_OCAML_APPLICATION_EXPRESSION, TS_OCAML_METHOD_INVOCATION)
+
+# (H) FQN scope/function types for new languages
+FQN_SWIFT_SCOPE_TYPES = (
+    TS_SWIFT_CLASS_DECLARATION,
+    TS_SWIFT_STRUCT_DECLARATION,
+    TS_SWIFT_ENUM_DECLARATION,
+)
+FQN_SWIFT_FUNCTION_TYPES = (TS_SWIFT_FUNCTION_DECLARATION,)
+
+FQN_RUBY_SCOPE_TYPES = (TS_RUBY_CLASS, TS_RUBY_MODULE)
+FQN_RUBY_FUNCTION_TYPES = (TS_RUBY_METHOD, TS_RUBY_SINGLETON_METHOD)
+
+FQN_KOTLIN_SCOPE_TYPES = (TS_KOTLIN_CLASS_DECLARATION, TS_KOTLIN_OBJECT_DECLARATION)
+FQN_KOTLIN_FUNCTION_TYPES = (TS_KOTLIN_FUNCTION_DECLARATION,)
+
+FQN_ELIXIR_SCOPE_TYPES: tuple[str, ...] = ()
+FQN_ELIXIR_FUNCTION_TYPES = (TS_ELIXIR_CALL,)
+
+FQN_DART_SCOPE_TYPES = (TS_DART_CLASS_DEFINITION,)
+FQN_DART_FUNCTION_TYPES = (TS_DART_FUNCTION_SIGNATURE, TS_DART_METHOD_SIGNATURE)
+
+FQN_BASH_SCOPE_TYPES: tuple[str, ...] = ()
+FQN_BASH_FUNCTION_TYPES = (TS_BASH_FUNCTION_DEFINITION,)
+
+FQN_SQL_SCOPE_TYPES: tuple[str, ...] = ()
+FQN_SQL_FUNCTION_TYPES = (TS_SQL_CREATE_FUNCTION,)
+
+FQN_HCL_SCOPE_TYPES = (TS_HCL_BLOCK,)
+FQN_HCL_FUNCTION_TYPES: tuple[str, ...] = ()
+
+FQN_ELM_SCOPE_TYPES = (TS_ELM_MODULE_DECLARATION,)
+FQN_ELM_FUNCTION_TYPES = (TS_ELM_VALUE_DECLARATION,)
+
+FQN_OCAML_SCOPE_TYPES = (TS_OCAML_MODULE_DEFINITION, TS_OCAML_CLASS_DEFINITION)
+FQN_OCAML_FUNCTION_TYPES = (TS_OCAML_VALUE_DEFINITION,)

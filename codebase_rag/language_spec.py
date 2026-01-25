@@ -187,6 +187,77 @@ PHP_FQN_SPEC = FQNSpec(
     file_to_module_parts=_generic_file_to_module,
 )
 
+# New language FQN specs
+SWIFT_FQN_SPEC = FQNSpec(
+    scope_node_types=frozenset(cs.FQN_SWIFT_SCOPE_TYPES),
+    function_node_types=frozenset(cs.FQN_SWIFT_FUNCTION_TYPES),
+    get_name=_generic_get_name,
+    file_to_module_parts=_generic_file_to_module,
+)
+
+RUBY_FQN_SPEC = FQNSpec(
+    scope_node_types=frozenset(cs.FQN_RUBY_SCOPE_TYPES),
+    function_node_types=frozenset(cs.FQN_RUBY_FUNCTION_TYPES),
+    get_name=_generic_get_name,
+    file_to_module_parts=_generic_file_to_module,
+)
+
+KOTLIN_FQN_SPEC = FQNSpec(
+    scope_node_types=frozenset(cs.FQN_KOTLIN_SCOPE_TYPES),
+    function_node_types=frozenset(cs.FQN_KOTLIN_FUNCTION_TYPES),
+    get_name=_generic_get_name,
+    file_to_module_parts=_generic_file_to_module,
+)
+
+ELIXIR_FQN_SPEC = FQNSpec(
+    scope_node_types=frozenset(cs.FQN_ELIXIR_SCOPE_TYPES),
+    function_node_types=frozenset(cs.FQN_ELIXIR_FUNCTION_TYPES),
+    get_name=_generic_get_name,
+    file_to_module_parts=_generic_file_to_module,
+)
+
+DART_FQN_SPEC = FQNSpec(
+    scope_node_types=frozenset(cs.FQN_DART_SCOPE_TYPES),
+    function_node_types=frozenset(cs.FQN_DART_FUNCTION_TYPES),
+    get_name=_generic_get_name,
+    file_to_module_parts=_generic_file_to_module,
+)
+
+BASH_FQN_SPEC = FQNSpec(
+    scope_node_types=frozenset(cs.FQN_BASH_SCOPE_TYPES),
+    function_node_types=frozenset(cs.FQN_BASH_FUNCTION_TYPES),
+    get_name=_generic_get_name,
+    file_to_module_parts=_generic_file_to_module,
+)
+
+SQL_FQN_SPEC = FQNSpec(
+    scope_node_types=frozenset(cs.FQN_SQL_SCOPE_TYPES),
+    function_node_types=frozenset(cs.FQN_SQL_FUNCTION_TYPES),
+    get_name=_generic_get_name,
+    file_to_module_parts=_generic_file_to_module,
+)
+
+HCL_FQN_SPEC = FQNSpec(
+    scope_node_types=frozenset(cs.FQN_HCL_SCOPE_TYPES),
+    function_node_types=frozenset(cs.FQN_HCL_FUNCTION_TYPES),
+    get_name=_generic_get_name,
+    file_to_module_parts=_generic_file_to_module,
+)
+
+ELM_FQN_SPEC = FQNSpec(
+    scope_node_types=frozenset(cs.FQN_ELM_SCOPE_TYPES),
+    function_node_types=frozenset(cs.FQN_ELM_FUNCTION_TYPES),
+    get_name=_generic_get_name,
+    file_to_module_parts=_generic_file_to_module,
+)
+
+OCAML_FQN_SPEC = FQNSpec(
+    scope_node_types=frozenset(cs.FQN_OCAML_SCOPE_TYPES),
+    function_node_types=frozenset(cs.FQN_OCAML_FUNCTION_TYPES),
+    get_name=_generic_get_name,
+    file_to_module_parts=_generic_file_to_module,
+)
+
 LANGUAGE_FQN_SPECS: dict[cs.SupportedLanguage, FQNSpec] = {
     cs.SupportedLanguage.PYTHON: PYTHON_FQN_SPEC,
     cs.SupportedLanguage.JS: JS_FQN_SPEC,
@@ -199,6 +270,17 @@ LANGUAGE_FQN_SPECS: dict[cs.SupportedLanguage, FQNSpec] = {
     cs.SupportedLanguage.SCALA: SCALA_FQN_SPEC,
     cs.SupportedLanguage.CSHARP: CSHARP_FQN_SPEC,
     cs.SupportedLanguage.PHP: PHP_FQN_SPEC,
+    # New languages
+    cs.SupportedLanguage.SWIFT: SWIFT_FQN_SPEC,
+    cs.SupportedLanguage.RUBY: RUBY_FQN_SPEC,
+    cs.SupportedLanguage.KOTLIN: KOTLIN_FQN_SPEC,
+    cs.SupportedLanguage.ELIXIR: ELIXIR_FQN_SPEC,
+    cs.SupportedLanguage.DART: DART_FQN_SPEC,
+    cs.SupportedLanguage.BASH: BASH_FQN_SPEC,
+    cs.SupportedLanguage.SQL: SQL_FQN_SPEC,
+    cs.SupportedLanguage.HCL: HCL_FQN_SPEC,
+    cs.SupportedLanguage.ELM: ELM_FQN_SPEC,
+    cs.SupportedLanguage.OCAML: OCAML_FQN_SPEC,
 }
 
 
@@ -405,6 +487,87 @@ LANGUAGE_SPECS: dict[cs.SupportedLanguage, LanguageSpec] = {
         module_node_types=cs.SPEC_LUA_MODULE_TYPES,
         call_node_types=cs.SPEC_LUA_CALL_TYPES,
         import_node_types=cs.SPEC_LUA_IMPORT_TYPES,
+    ),
+    # New languages
+    cs.SupportedLanguage.SWIFT: LanguageSpec(
+        language=cs.SupportedLanguage.SWIFT,
+        file_extensions=cs.SWIFT_EXTENSIONS,
+        function_node_types=cs.SPEC_SWIFT_FUNCTION_TYPES,
+        class_node_types=cs.SPEC_SWIFT_CLASS_TYPES,
+        module_node_types=cs.SPEC_SWIFT_MODULE_TYPES,
+        call_node_types=cs.SPEC_SWIFT_CALL_TYPES,
+    ),
+    cs.SupportedLanguage.RUBY: LanguageSpec(
+        language=cs.SupportedLanguage.RUBY,
+        file_extensions=cs.RUBY_EXTENSIONS,
+        function_node_types=cs.SPEC_RUBY_FUNCTION_TYPES,
+        class_node_types=cs.SPEC_RUBY_CLASS_TYPES,
+        module_node_types=cs.SPEC_RUBY_MODULE_TYPES,
+        call_node_types=cs.SPEC_RUBY_CALL_TYPES,
+    ),
+    cs.SupportedLanguage.KOTLIN: LanguageSpec(
+        language=cs.SupportedLanguage.KOTLIN,
+        file_extensions=cs.KOTLIN_EXTENSIONS,
+        function_node_types=cs.SPEC_KOTLIN_FUNCTION_TYPES,
+        class_node_types=cs.SPEC_KOTLIN_CLASS_TYPES,
+        module_node_types=cs.SPEC_KOTLIN_MODULE_TYPES,
+        call_node_types=cs.SPEC_KOTLIN_CALL_TYPES,
+    ),
+    cs.SupportedLanguage.ELIXIR: LanguageSpec(
+        language=cs.SupportedLanguage.ELIXIR,
+        file_extensions=cs.ELIXIR_EXTENSIONS,
+        function_node_types=cs.SPEC_ELIXIR_FUNCTION_TYPES,
+        class_node_types=cs.SPEC_ELIXIR_CLASS_TYPES,
+        module_node_types=cs.SPEC_ELIXIR_MODULE_TYPES,
+        call_node_types=cs.SPEC_ELIXIR_CALL_TYPES,
+    ),
+    cs.SupportedLanguage.DART: LanguageSpec(
+        language=cs.SupportedLanguage.DART,
+        file_extensions=cs.DART_EXTENSIONS,
+        function_node_types=cs.SPEC_DART_FUNCTION_TYPES,
+        class_node_types=cs.SPEC_DART_CLASS_TYPES,
+        module_node_types=cs.SPEC_DART_MODULE_TYPES,
+        call_node_types=cs.SPEC_DART_CALL_TYPES,
+    ),
+    cs.SupportedLanguage.BASH: LanguageSpec(
+        language=cs.SupportedLanguage.BASH,
+        file_extensions=cs.BASH_EXTENSIONS,
+        function_node_types=cs.SPEC_BASH_FUNCTION_TYPES,
+        class_node_types=cs.SPEC_BASH_CLASS_TYPES,
+        module_node_types=cs.SPEC_BASH_MODULE_TYPES,
+        call_node_types=cs.SPEC_BASH_CALL_TYPES,
+    ),
+    cs.SupportedLanguage.SQL: LanguageSpec(
+        language=cs.SupportedLanguage.SQL,
+        file_extensions=cs.SQL_EXTENSIONS,
+        function_node_types=cs.SPEC_SQL_FUNCTION_TYPES,
+        class_node_types=cs.SPEC_SQL_CLASS_TYPES,
+        module_node_types=cs.SPEC_SQL_MODULE_TYPES,
+        call_node_types=cs.SPEC_SQL_CALL_TYPES,
+    ),
+    cs.SupportedLanguage.HCL: LanguageSpec(
+        language=cs.SupportedLanguage.HCL,
+        file_extensions=cs.HCL_EXTENSIONS,
+        function_node_types=cs.SPEC_HCL_FUNCTION_TYPES,
+        class_node_types=cs.SPEC_HCL_CLASS_TYPES,
+        module_node_types=cs.SPEC_HCL_MODULE_TYPES,
+        call_node_types=cs.SPEC_HCL_CALL_TYPES,
+    ),
+    cs.SupportedLanguage.ELM: LanguageSpec(
+        language=cs.SupportedLanguage.ELM,
+        file_extensions=cs.ELM_EXTENSIONS,
+        function_node_types=cs.SPEC_ELM_FUNCTION_TYPES,
+        class_node_types=cs.SPEC_ELM_CLASS_TYPES,
+        module_node_types=cs.SPEC_ELM_MODULE_TYPES,
+        call_node_types=cs.SPEC_ELM_CALL_TYPES,
+    ),
+    cs.SupportedLanguage.OCAML: LanguageSpec(
+        language=cs.SupportedLanguage.OCAML,
+        file_extensions=cs.OCAML_EXTENSIONS,
+        function_node_types=cs.SPEC_OCAML_FUNCTION_TYPES,
+        class_node_types=cs.SPEC_OCAML_CLASS_TYPES,
+        module_node_types=cs.SPEC_OCAML_MODULE_TYPES,
+        call_node_types=cs.SPEC_OCAML_CALL_TYPES,
     ),
 }
 
